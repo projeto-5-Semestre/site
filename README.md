@@ -16,11 +16,8 @@ npm install
 
 4. Execute o projeto em modo de desenvolvimento:
 
+npm run dev
 
-Claro, aqui está o conteúdo em formato TXT:
-
-bash
-Copy code
 # Projeto XYZ
 
 Este é um projeto incrível que faz [breve descrição do projeto].
