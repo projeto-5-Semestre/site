@@ -1,26 +1,3 @@
-# Projeto XYZ
-
-.
-
-## Como Usar
-
-1. Clone este repositório em sua máquina local:
-
-
-2. Navegue até o diretório do projeto:
-
-
-3. Instale as dependências necessárias:
-
-npm install
-
-4. Execute o projeto em modo de desenvolvimento:
-
-npm run dev
-
-# Projeto XYZ
-
-Este é um projeto incrível que faz [breve descrição do projeto].
 
 ## Como Usar
 
