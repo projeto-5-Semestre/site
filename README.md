@@ -3,29 +3,23 @@
 
 1. Clone este repositório em sua máquina local:
 
-git clone https://github.com/seu-usuario/projeto-xyz.git
+git clone (URL do projeto do git)
 
-arduino
+
 Copy code
 
 2. Navegue até o diretório do projeto:
 
-cd projeto-xyz
+cd "caminho do projeto"
 
-csharp
-Copy code
 
 3. Instale as dependências necessárias:
 
 npm install
 
-css
-Copy code
-
 4. Execute o projeto em modo de desenvolvimento:
 
 npm run dev
-
 
 5. Abra seu navegador e visite `http://localhost:3000` para ver o projeto em ação.
 
