@@ -1,3 +1,7 @@
+## O que você precisa
+
+1. Node instalado
+
 
 ## Como Usar
 
