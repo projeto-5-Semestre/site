@@ -1,0 +1,34 @@
+{
+  "veiculos": [
+    {
+      "modelo": "Toyota Corolla",
+      "url_imagem": "https://w7.pngwing.com/pngs/486/759/png-transparent-2017-toyota-corolla-2016-toyota-corolla-2014-toyota-corolla-2015-toyota-corolla-toyota.png",
+      "quilometragem": "50.000 km",
+      "placa": "ABC-1234"
+    },
+    {
+      "modelo": "Ford Fusion",
+      "url_imagem": "https://w7.pngwing.com/pngs/303/657/png-transparent-ford-fusion-hybrid-2013-ford-fusion-car-2014-ford-fusion-car-compact-car-sedan-headlamp.png",
+      "quilometragem": "70.000 km",
+      "placa": "DEF-5678"
+    },
+    {
+      "modelo": "Volkswagen Gol",
+      "url_imagem": "https://w7.pngwing.com/pngs/465/864/png-transparent-volkswagen-gol-car-vw-saveiro-volkswagen-polo-volkswagen-compact-car-car-volkswagen.png",
+      "quilometragem": "40.000 km",
+      "placa": "GHI-9012"
+    },
+    {
+      "modelo": "Honda Civic",
+      "url_imagem": "https://w7.pngwing.com/pngs/64/833/png-transparent-2018-honda-fit-car-2018-honda-civic-lx-2018-honda-civic-sedan-honda-compact-car-sedan-car.png",
+      "quilometragem": "60.000 km",
+      "placa": "JKL-3456"
+    },
+    {
+      "modelo": "Chevrolet Onix",
+      "url_imagem": "https://w7.pngwing.com/pngs/736/244/png-transparent-chevrolet-prisma-chevrolet-onix-general-motors-chevrolet-compact-car-sedan-car.png",
+      "quilometragem": "35.000 km",
+      "placa": "MNO-7890"
+    }
+  ]
+}
