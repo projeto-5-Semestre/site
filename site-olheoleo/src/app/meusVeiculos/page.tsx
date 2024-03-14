@@ -56,7 +56,7 @@ export default function Main() {
           </div>
         ))}
         <Link href="/addCar">
-          <button className="absolute bottom-2 right-3 bg-shad text-txt py-2 px-3 rounded-xl">
+          <button className="fixed bottom-2 right-3 bg-shad text-txt py-2 px-3 rounded-xl">
             <span className="text-txt text-3xl">
               <IoIosAddCircleOutline />
             </span>
