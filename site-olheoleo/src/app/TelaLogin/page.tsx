@@ -12,7 +12,7 @@ export default function TelaLogin() {
               Bem-vindo
             </h2>
             <p className="mt-3 text-center text-1xl font-bold leading-9 tracking-tight text-gray-900">
-              To the future of transportation{" "}
+              To the future of transportation
             </p>
           </div>
         </div>
