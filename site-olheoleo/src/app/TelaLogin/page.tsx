@@ -17,7 +17,7 @@ export default function TelaLogin() {
           </div>
         </div>
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <AuthenticationBody></AuthenticationBody>
+          <AuthenticationBody/>
         </div>
         <Link href={"#"} className="text-center font-bold  text-black">Registre-se</Link>
       </div>
