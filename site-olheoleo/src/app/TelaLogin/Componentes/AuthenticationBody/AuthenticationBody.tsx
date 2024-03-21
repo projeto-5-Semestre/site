@@ -74,7 +74,7 @@ export default function AuthenticationBody() {
             Senha
           </label>
           <div className="text-sm">
-            <Link href={"#"} className="font-bold text-black">
+            <Link href={"/TelaLogin/TelaEsqueciASenha"} className="font-bold text-black">
               Esqueceu a senha?
             </Link>
           </div>
