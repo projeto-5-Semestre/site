@@ -20,6 +20,11 @@ const config: Config = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    
+  ],
+  corePlugins: {
+    backdropFilter: true,
+  }
 };
 export default config;
