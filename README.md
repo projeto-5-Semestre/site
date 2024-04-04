@@ -1,3 +1,7 @@
+## O que você precisa
+
+1. Node instalado
+
 
 ## Como Usar
 
@@ -25,7 +29,7 @@ npm run dev
 
 ## O Que Não Fazer
 
-- **Não cometa diretamente na branch principal (main)**: Sempre crie uma branch separada para suas alterações e solicite uma pull request para revisão antes de mesclar com a branch principal.
+- **Não commite diretamente na branch principal (main)**: Sempre crie uma branch separada para suas alterações e solicite uma pull request para revisão antes de mesclar com a branch principal.
 
 ## Boas Práticas e Segurança
 
