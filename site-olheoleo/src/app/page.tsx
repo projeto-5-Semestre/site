@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,7 +29,7 @@ export default function Home() {
           target="_self"
           rel="noopener noreferrer"
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
+          <h2 className="mb-3 text-2xl font-semibold">
             Seus Veículos{" "}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
             </span>

@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import "../globals.css"
+
 
 import Image from 'next/image';
 import Modal from '@/components/Modal'
@@ -8,7 +8,6 @@ import Modal from '@/components/Modal'
 import sempng from '../../../public/sem.jpg.gif'
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import RootLayout from "../layout";
 
 export type Veiculo = {
   modelo: string,
