@@ -81,6 +81,20 @@ export default function Main() {
             </div>
           </div>
         ))}
+        {openModalVeiculos && (
+          <div className="fixed inset-0 backdrop-blur-sm pointer-events-none z-10"> </div>
+        )}
+        <Modal isOpen={openModalVeiculos} onClose={handleCloseModalVeiculos} image={selectedVeiculo?.url_imagem} >
+          {
+            selectedVeiculo && (
+              <div className="text-center">
+                <h2>{selectedVeiculo.modelo}</h2>
+                <p>Quilometragem: {selectedVeiculo.quilometragem}</p>
+                <p>Placa: {selectedVeiculo.placa}</p>
+              </div>
+            )}
+        </Modal>
+
         <Modal_AddVeiculos isOpen={openModalAddVeiculo} onClose={handleCloseModalAddVeiculo} />
         <button
           onClick={() => setOpenModalAddVeiculo(true)}
