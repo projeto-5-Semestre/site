@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Modal_AddVeiculos from "@/components/Modal_AddVeiculos";
 
 
 export default function Home() {
