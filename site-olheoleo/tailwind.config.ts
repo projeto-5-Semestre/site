@@ -17,7 +17,18 @@ const config: Config = {
         fund: "#0D1F2D",
         txt: "#EFF1F3",
         grid: "#555",
-        shad: "#008190"
+        shad: "#008190",
+      },
+
+      keyframes: {
+        flip: {
+          "0%, 100%": { transform: "rotateX(0deg)" },
+          "50%": { transform: "rotateX(180deg)" },
+        },
+      },
+      animation: {
+        "flip-once": "flip 1s ease-in-out",
+
       },
     },
   },
