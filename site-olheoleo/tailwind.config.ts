@@ -28,9 +28,12 @@ const config: Config = {
       },
       animation: {
         "flip-once": "flip 1s ease-in-out",
+
       },
     },
   },
-  plugins: [],
+  corePlugins: {
+    backdropFilter: true,
+  }
 };
 export default config;
