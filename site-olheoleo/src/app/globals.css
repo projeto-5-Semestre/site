@@ -32,21 +32,3 @@ body {
     text-wrap: balance;
   }
 }
-
-/*CSS ERICk*/
-
-.bg-emerald-700 {
-  background-color: #044478;
-}
-
-.bg-emerald-300 {
-  background-color: #044478;
-}
-
-.bg-zinc-800 {
-  background-color: rgb(36, 36, 36);
-}
-
-.bg-grey-500{
-  background-color: #f8f8f8;
-}
