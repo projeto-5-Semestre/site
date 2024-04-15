@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
             <a href="/produtos" className="hover:underline"><IoLocationSharp size={20} /></a>
           </li>
           <li>
-            <a href="/perfil" className="hover:underline"><IoPersonCircleSharp size={20} /></a>
+            <a href="/TelaLogin/TelaHome/TelaPerfil" className="hover:underline"><IoPersonCircleSharp size={20} /></a>
           </li>
         </ul>
       </nav>

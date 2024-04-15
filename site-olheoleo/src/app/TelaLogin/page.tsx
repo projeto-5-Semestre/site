@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import "../globals.css";
 import AuthenticationBody from "./Componentes/AuthenticationBody/AuthenticationBody";

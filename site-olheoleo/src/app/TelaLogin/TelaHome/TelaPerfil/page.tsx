@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Image from 'next/image';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
