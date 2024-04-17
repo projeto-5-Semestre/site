@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { useForm, SubmitHandler } from "react-hook-form";
 import Image from 'next/image';
 import Button_AddFoto from './Button_AddFoto';
 import { IoCloseCircle } from 'react-icons/io5';
@@ -17,13 +18,14 @@ export default function Modal_AddVeiculos({ isOpen, onClose }: Modal_AddVeiculos
   const [addClicked, setAddClicked] = useState(false);
   const [selectedImage, setSelectedImage] = useState('/car.jpg');
 
+
+
   const handleAddVehicle = () => {
     setAddClicked(true);
     if (!model || !plate || !mileage || !oilType) {
       // Se algum campo estiver vazio, retorna sem fazer nada
       return;
     }
-
     // Lógica para adicionar o veículo
     console.log('Adicionando veículo:', { model, plate, mileage, oilType });
 
@@ -59,7 +61,7 @@ export default function Modal_AddVeiculos({ isOpen, onClose }: Modal_AddVeiculos
             </span>
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h2 className="text-lg leading-6 font-medium text-gray-900">
+                <h2 className="flex items-center text-lg leading-6 font-medium text-gray-900">
                   Adicionar Novo Veículo{' '}
                   <span className="flex ml-auto justify-end close cursor-pointer text-fund" onClick={onClose}>
                     <IoCloseCircle size={28} />
@@ -75,7 +77,10 @@ export default function Modal_AddVeiculos({ isOpen, onClose }: Modal_AddVeiculos
                 />
 
                 <Button_AddFoto selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+                <form action="">
 
+
+                </form>
                 <input
                   type="text"
                   placeholder="Modelo"
