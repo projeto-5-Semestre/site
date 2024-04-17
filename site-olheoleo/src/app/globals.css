@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -31,4 +31,22 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/*CSS ERICk*/
+
+.bg-emerald-700 {
+  background-color: #044478;
+}
+
+.bg-emerald-300 {
+  background-color: #044478;
+}
+
+.bg-zinc-800 {
+  background-color: rgb(36, 36, 36);
+}
+
+.bg-grey-500{
+  background-color: #f8f8f8;
 }
