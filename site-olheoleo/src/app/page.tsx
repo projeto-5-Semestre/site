@@ -37,10 +37,8 @@ export default function Home() {
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
             </span>
           </h2>
-
         </a>
       </div>
     </main>
-
   );
 }
