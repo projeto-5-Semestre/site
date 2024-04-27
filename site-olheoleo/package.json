@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
     "@mui/material-nextjs": "latest",
+    "axios": "^1.6.8",
     "i": "^0.3.7",
     "json-server": "^1.0.0-alpha.23",
     "next": "14.1.0",

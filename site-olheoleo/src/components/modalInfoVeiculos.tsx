@@ -6,11 +6,12 @@ import Image from 'next/image';
 interface ModalProps {
   isOpen: boolean;
   onClose?: () => void;
+  onSave?: () => void;
   children?: ReactNode;
   image?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, image }) => {
+const ModalInfoVeiculos: React.FC<ModalProps> = ({ isOpen, onSave, onClose, children, image }) => {
   if (!isOpen) {
     return null;
   }
@@ -44,4 +45,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, image }) => {
   )
 };
 
-export default Modal;
+export default ModalInfoVeiculos;
