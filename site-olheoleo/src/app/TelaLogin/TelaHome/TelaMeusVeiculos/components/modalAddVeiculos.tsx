@@ -88,7 +88,7 @@ export default function Modal_AddVeiculos({
                     type="text"
                     placeholder="Modelo"
                     {...register('modelo', { required: true })}
-                    className={`mt-3 p-2 w-full border ${errors.modelo ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                    className={`mt-3 p-2 w-full border ${errors.modelo ? 'border-bord' : 'border-gray-300'} rounded-md text-black`}
                   />
                   <input
                     type="text"

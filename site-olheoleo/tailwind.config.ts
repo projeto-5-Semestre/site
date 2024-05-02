@@ -14,10 +14,11 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        fund: "#0D1F2D",
-        txt: "#EFF1F3",
-        grid: "#555",
-        shad: "#008190",
+        fund: "#F4F4F8",
+        txt: "#0D1F2D",
+        grid: "#E0E0E0",
+        shad: "#009358",
+        bord: "#FEC31A",
       },
 
       keyframes: {
@@ -28,12 +29,11 @@ const config: Config = {
       },
       animation: {
         "flip-once": "flip 1s ease-in-out",
-
       },
     },
   },
   corePlugins: {
     backdropFilter: true,
-  }
+  },
 };
 export default config;

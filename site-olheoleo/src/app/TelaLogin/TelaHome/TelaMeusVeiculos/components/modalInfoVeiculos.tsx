@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
 import React, { ReactNode } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import Image from 'next/image';
+
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,7 +13,9 @@ interface ModalProps {
   image?: string;
 }
 
-const ModalInfoVeiculos: React.FC<ModalProps> = ({ isOpen, onSave, onClose, children, image }) => {
+export default function ModalInfoVeiculos({
+  isOpen, onSave, onClose, children, image }: ModalProps) {
+
   if (!isOpen) {
     return null;
   }
@@ -44,5 +48,3 @@ const ModalInfoVeiculos: React.FC<ModalProps> = ({ isOpen, onSave, onClose, chil
     </div>
   )
 };
-
-export default ModalInfoVeiculos;
