@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from "@mui/icons-material/Save";
+import HeaderNavigation from "./components/HeaderNavigation";
 
 export type Veiculo = {
   id: string,
@@ -102,6 +103,9 @@ export default function Main() {
 
   return (
     <main className="flex flex-col min-w-screen min-h-screen bg-fund">
+      <div>
+        <HeaderNavigation />
+      </div>
       <header className="flex flex-row min-w-screen justify-between bg-fund ">
         <div className="flex justify-center items-center w-screen px-10 py-10 text-txt font-semibold ">
           <h1>Meus Automóveis</h1>

@@ -69,7 +69,7 @@ export default function Modal_AddVeiculos({
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <h2 className="flex items-center text-lg leading-6 font-medium text-gray-900">
                   Adicionar Novo Veículo{' '}
-                  <span className="flex ml-auto justify-end close cursor-pointer text-fund" onClick={onClose}>
+                  <span className="flex ml-auto justify-end close cursor-pointer text-txt" onClick={onClose}>
                     <IoCloseCircle size={28} />
                   </span>
                 </h2>
