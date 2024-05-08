@@ -20,7 +20,6 @@ const config: Config = {
         shad: "#009358",
         bord: "#FEC31A",
       },
-
       keyframes: {
         flip: {
           "0%, 100%": { transform: "rotateX(0deg)" },

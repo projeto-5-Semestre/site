@@ -1,19 +1,44 @@
 'use client'
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Modal from "./components/modalInfoVeiculos";
 import Modal_AddVeiculos from "./components/modalAddVeiculos";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from "@mui/icons-material/Save";
 import HeaderNavigation from "./components/HeaderNavigation";
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    ochre: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    ochre?: PaletteOptions['primary'];
+  }
+}
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    ochre: true;
+  }
+}
+
+const theme = createTheme({
+  palette: {
+    ochre: {
+      main: '#E3D026',
+      light: '#E9DB5D',
+      dark: '#A29415',
+      contrastText: '#242105',
+    },
+  },
+});
+
 
 export type Veiculo = {
   id: string,
@@ -26,13 +51,11 @@ export type Veiculo = {
 
 export default function Main() {
   const url = 'http://localhost:3000'
-
-  const [selectedVeiculo, setSelectedVeiculo] = useState<Veiculo | null>(null);
+  const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
+  const [editedVeiculo, setEditedVeiculo] = useState<Veiculo | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [openModalVeiculo, setOpenModalVeiculo] = useState(false);
   const [openModalAddVeiculo, setOpenModalAddVeiculo] = useState(false);
-  const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
-  const [isEditMode, setIsEditMode] = useState(false);
-
 
   useEffect(() => {
     getVeiculos();
@@ -40,225 +63,233 @@ export default function Main() {
 
   async function getVeiculos() {
     try {
-      const reponse = await axios.get(`${url}/veiculos`);
-      setVeiculos(reponse.data);
+      const response = await axios.get(`${url}/veiculos`);
+      setVeiculos(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleOpenModalVeiculo = (veiculo: Veiculo) => {
-    setSelectedVeiculo(veiculo);
-    setOpenModalVeiculo(true);
+  async function deleteVeiculo(id: string) {
+    try {
+      await axios.delete(`${url}/veiculos/${id}`);
+      setVeiculos((prevVeiculos) => prevVeiculos.filter((veiculo) => veiculo.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleCloseModalVeiculo = () => {
-    setSelectedVeiculo(null);
-    setOpenModalVeiculo(false);
+  const handleToggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      if (editedVeiculo) {
+        await axios.put(`${url}/veiculos/${editedVeiculo.id}`, editedVeiculo);
+        await getVeiculos();
+        setIsEditMode(false);
+        setEditedVeiculo(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditVeiculo = (veiculo: Veiculo) => {
+    setEditedVeiculo({ ...veiculo });
+    setIsEditMode(true);
   };
 
   const handleCloseModalAddVeiculo = () => {
     setOpenModalAddVeiculo(false);
   }
 
-  const handleToggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
-  async function deleteVeiculo(id: string) {
-    try {
-      await axios.delete(`${url}/veiculos/${id}`);
-      setVeiculos((prevVeiculos) =>
-        prevVeiculos.filter((veiculo) => veiculo.id !== id)
-      );
-      handleCloseModalVeiculo();
-    } catch (error) {
-      console.log(error);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof Veiculo) => {
+    if (editedVeiculo) {
+      setEditedVeiculo(prevState => ({
+        ...prevState!,
+        [field]: e.target.value
+      }));
     }
-  };
-
-  const handleSaveChanges = async () => {
-    try {
-      const response = await axios.put(`${url}/veiculos/${selectedVeiculo?.id}`,
-        selectedVeiculo
-      );
-      console.log("Alteraçoes salvas: ", response.data);
-      await getVeiculos();
-      setIsEditMode(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setSelectedVeiculo((prevSelectedVeiculo) => ({
-      ...prevSelectedVeiculo!,
-      [name]: value,
-    })
-    )
   };
 
   return (
-    <main className="flex flex-col min-w-screen min-h-screen bg-fund">
-      <div>
-        <HeaderNavigation />
-      </div>
-      <header className="flex flex-row min-w-screen justify-between bg-fund ">
-        <div className="flex justify-center items-center w-screen px-10 py-10 text-txt font-semibold ">
-          <h1>Meus Automóveis</h1>
+    <ThemeProvider theme={theme}>
+      <main className="flex flex-col min-w-screen min-h-screen bg-fund">
+        <div>
+          <HeaderNavigation />
         </div>
-      </header>
-      <div className="flex flex-col space-y-4 justify-center items-center w-screen p-3 m-1 mb-8 bg-shad">
-        <Slider
-          dots={false}
-          infinite={true}
-          speed={500}
-          slidesToShow={1}
-          slidesToScroll={1}
-          arrows={true}
-          className="w-full"
-        >
-          {veiculos.map((veiculo) => (
-            <div
-              key={veiculo.id}
-              className="flex flex-col justify-center items-center bg-grid rounded-lg shadow-sm hover:shadow-md hover:shadow-slate-400/60 cursor-pointer relative"
-            >
-
-              <div className="absolute top-0 right-0 mr-2 mt-2">
-                <button
-                  onClick={() => setOpenModalAddVeiculo(true)}
-                  className="bg-shad text-black py-2 px-2 rounded-xl"
-                >
-                  <span className="text-txt text-3xl">
-                    <IoIosAddCircleOutline />
-                  </span>
-                </button>
-              </div>
-              <div className=" flex w-4/5 h-64 overflow-hidden rounded-lg justify-center items-center mb-8 " onClick={() => handleOpenModalVeiculo(veiculo)}>
-
-                <Image
-                  className="object-contain w-[40%] h-4/5"
-                  src={veiculo.url_imagem}
-                  width={250}
-                  height={250}
-                  alt="Carro"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "/sem_img.png";
-                  }}
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center w-full p-4">
-                <input
-                  className="text-txt font-bold text-center border border-gray-300 rounded-md p-1 mb-2 w-full"
-                  type="text"
-                  value={veiculo.modelo}
-                  readOnly
-                />
-                <input
-                  className="text-txt border border-gray-300 rounded-md p-1 mb-2 w-full"
-                  type="text"
-                  value={`${veiculo.quilometragem} km`}
-                  readOnly
-                />
-                <input
-                  className="text-txt border border-gray-300 rounded-md p-1 w-full"
-                  type="text"
-                  value={veiculo.placa}
-                  readOnly
-                />
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-      <Modal
-        isOpen={openModalVeiculo}
-        onClose={handleCloseModalVeiculo}
-        image={selectedVeiculo?.url_imagem}
-        onSave={handleSaveChanges}
-      >
-        {selectedVeiculo && (
-          <div className="text-center text-txt ">
-            <h2>{selectedVeiculo.modelo}</h2>
-            <p>
-              Quilometragem:
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="quilometragem"
-                  className="text-black border border-gray-300 rounded-md p-1"
-                  value={selectedVeiculo.quilometragem}
-                  onChange={handleChange}
-                />
-              ) : (
-                selectedVeiculo.quilometragem
-              )}
-            </p>
-            <p>
-              Placa:
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="placa"
-                  className="text-black border border-gray-300 rounded-md p-1"
-                  value={selectedVeiculo.placa}
-                  onChange={handleChange}
-                />
-              ) : (
-                selectedVeiculo.placa
-              )}
-            </p>
-            <p>
-              Tipo de Óleo:
-              {isEditMode ? (
-                <input
-                  type="text"
-                  name="tipo_oleo"
-                  className="text-black border border-gray-300 rounded-md p-1"
-                  value={selectedVeiculo.tipo_oleo}
-                  onChange={handleChange}
-                />
-              ) : (
-                selectedVeiculo.tipo_oleo
-              )}
-            </p>
-            <div className="flex justify-around py-2 ">
-              {isEditMode ? (
-                <div className="flex justify-around py-2">
-                  <Button onClick={handleSaveChanges} variant="contained" endIcon={<SaveIcon />}>
-                    Salvar
-                  </Button>
-                  <div className="ml-1">
-                    <Button onClick={handleToggleEditMode} variant="contained">
-                      Cancelar
-                    </Button>
+        <header className="flex flex-row min-w-screen justify-between bg-fund ">
+          <div className="flex justify-center items-center w-screen px-10 py-10 text-txt font-semibold ">
+            <h1>Meus Automóveis</h1>
+          </div>
+        </header>
+        <div className="flex flex-col space-y-4 justify-center items-center w-screen p-3 m-1 mb-8">
+          <Slider
+            dots={false}
+            infinite={true}
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            arrows={false}
+            className="w-full"
+          >
+            {veiculos.map((veiculo) => (
+              <div key={veiculo.id} >
+                <div className="relative">
+                  <div className="absolute w-[180px] h-[140px] bg-shad opacity-100 transform -skew-x-12 z-1 -bottom-3.5 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20">
+                    <div className="absolute right-0 top-0 mt-1 mr-1">
+                      <button
+                        className="text-black cursor-pointer z-40" onClick={() => setOpenModalAddVeiculo(true)}
+                      >
+                        <Image src="/addBut.svg" alt="Adicionar Veiculo" className="w-10 h-10" width={10} height={10} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="w-4/5 h-64 overflow-hidden rounded-lg justify-center items-center">
+                    <div className="absolute inset-0 flex justify-center items-end">
+                      <Image
+                        className="object-contain max-w-full max-h-full z-40"
+                        src={"/teste.png"}
+                        width={250}
+                        height={250}
+                        alt="Carro"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null;
+                          target.src = "/sem_img.png";
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <Button onClick={handleToggleEditMode} variant="contained" endIcon={<EditIcon />}>
-                  Editar
-                </Button>
-              )}
-              <div>
-                <Button onClick={() => deleteVeiculo(selectedVeiculo.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
-                  Excluir
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
-      <Modal_AddVeiculos
-        isOpen={openModalAddVeiculo}
-        onClose={handleCloseModalAddVeiculo}
-        onAdd={getVeiculos}
-      />
+                <form className="flex flex-col justify-start w-full p-4 text-black">
+                  <div className="flex flex-col mb-2">
+                  <div className="flex flex-col mb-2">
+                      <label htmlFor="modelo" className="mb-1">Modelo:</label>
+                      {isEditMode ? (
+                        <input
+                          type="text"
+                          id="modelo"
+                          name="modelo"
+                          className="text-black border border-gray-300 rounded-md p-1"
+                          value={editedVeiculo?.modelo}
+                          onChange={(e) => handleChange(e, "modelo")}
+                        />
+                      ) : (
+                        <input
+                          className="text-txt border border-gray-300 rounded-md p-1 mb-2 w-2/4"
+                          type="text"
+                          value={`${veiculo.modelo}`}
+                          readOnly
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="quilometragem" className="mb-1">Quilometragem:</label>
+                      {isEditMode ? (
+                        <input
+                          type="text"
+                          id="quilometragem"
+                          name="quilometragem"
+                          className="text-black border border-gray-300 rounded-md p-1"
+                          value={editedVeiculo?.quilometragem}
+                          onChange={(e) => handleChange(e, "quilometragem")}
+                        />
+                      ) : (
+                        <input
+                          className="text-txt border border-gray-300 rounded-md p-1 mb-2 w-2/4"
+                          type="text"
+                          value={`${veiculo.quilometragem} km`}
+                          readOnly
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="placa" className="mb-1">Placa:</label>
+                      {isEditMode ? (
+                        <input
+                          type="text"
+                          id="placa"
+                          name="placa"
+                          className="text-black border border-gray-300 rounded-md p-1"
+                          value={editedVeiculo?.placa}
+                          onChange={(e) => handleChange(e, "placa")}
+                        />
+                      ) : (
+                        <input
+                          className="text-txt border border-gray-300 rounded-md p-1 mb-2 w-2/4"
+                          type="text"
+                          value={`${veiculo.placa}`}
+                          readOnly
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="tipo_oleo" className="mb-1">Tipo de Óleo:</label>
+                      {isEditMode ? (
+                        <input
+                          type="text"
+                          id="tipo_oleo"
+                          name="tipo_oleo"
+                          className="text-black border border-gray-300 rounded-md p-1"
+                          value={editedVeiculo?.tipo_oleo}
+                          onChange={(e) => handleChange(e, "tipo_oleo")}
+                        />
+                      ) : (
+                        <input
+                          className="text-txt border border-gray-300 rounded-md p-1 mb-2 w-2/4"
+                          type="text"
+                          value={`${veiculo.tipo_oleo}`}
+                          readOnly
+                        />
+                      )}
+                    </div>
+                  </div>
+                </form>
 
-    </main >
+                <div className="flex justify-around py-2 ">
+                  {isEditMode ? (
+                    <div className="flex justify-around py-2">
+                      <Button onClick={handleSaveChanges} variant="contained" endIcon={<SaveIcon />} color='ochre' style={{ color: 'white' }} >
+                        Salvar
+                      </Button>
+                      <div className="ml-1">
+                        <Button onClick={handleToggleEditMode} variant="contained" color="ochre" style={{ color: 'white' }}>
+                          Cancelar
+                        </Button>
+                      </div>
+                    </div>
+                  ) :
+                    (
+                      <>
+                        <div>
+                          <Button onClick={() => handleEditVeiculo(veiculo)} variant="contained" color="ochre" style={{ color: 'white' }} >
+                            Editar
+                          </Button>
+                        </div>
+                        <div>
+                          <div>
+                            <Button onClick={() => deleteVeiculo(veiculo.id)} variant="contained" color="error" startIcon={<DeleteIcon />}>
+                              Excluir
+                            </Button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                </div>
+
+              </div>
+            ))}
+          </Slider>
+        </div>
+        <Modal_AddVeiculos
+          isOpen={openModalAddVeiculo}
+          onClose={handleCloseModalAddVeiculo}
+          onAdd={getVeiculos}
+        />
+      </main >
+    </ThemeProvider>
   );
 }

@@ -28,7 +28,7 @@ export default function ModalInfoVeiculos({
             image && (
               <Image
                 className='object-cover rounded-md my-4 sm:h-1/4 sm:w-1/3 md:h-[30%] md:w-1/4 w-2/5 h-1/4 min-w-[115px] max-w-[450px] max-h-[200px]'
-                src={image || '../../public/sem.jpg.gif'}
+                src={'/teste.png'}
                 alt='Imagem do Veículo'
                 width={450}
                 height={250}
@@ -38,7 +38,7 @@ export default function ModalInfoVeiculos({
         </div>
 
         <div
-          className='absolute top-2 right-2 text-shad hover:text-slate-200 cursor-pointer'
+          className='absolute top-2 right-2 hover:text-slate-200 cursor-pointer'
           onClick={onClose}
         >
           <IoCloseCircle size={28} />

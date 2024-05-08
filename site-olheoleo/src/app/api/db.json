@@ -5,14 +5,16 @@
       "modelo": "Ford Fusion",
       "url_imagem": "https://w7.pngwing.com/pngs/303/657/png-transparent-ford-fusion-hybrid-2013-ford-fusion-car-2014-ford-fusion-car-compact-car-sedan-headlamp.png",
       "quilometragem": "70.000",
-      "placa": "DEF-5678"
+      "placa": "DEF-5678",
+      "tipo_oleo": ""
     },
     {
       "id": "3",
       "modelo": "Volkswagen Gol",
       "url_imagem": "https://w7.pngwing.com/pngs/465/864/png-transparent-volkswagen-gol-car-vw-saveiro-volkswagen-polo-volkswagen-compact-car-car-volkswagen.png",
-      "quilometragem": "40.000",
-      "placa": "GHI-9012"
+      "quilometragem": "40.500",
+      "placa": "GHI-9012",
+      "tipo_oleo": "Usado"
     },
     {
       "id": "4",
@@ -24,10 +26,18 @@
     },
     {
       "id": "3bdb",
-      "modelo": "Fordd",
+      "modelo": "Ford",
       "placa": "asd-123",
       "quilometragem": "4505",
-      "tipo_oleo": "Novo",
+      "tipo_oleo": "Velho",
+      "url_imagem": "/car.jpg"
+    },
+    {
+      "id": "4383",
+      "modelo": "Fox",
+      "placa": "452caa",
+      "quilometragem": "4521",
+      "tipo_oleo": "Velho",
       "url_imagem": "/car.jpg"
     }
   ]
