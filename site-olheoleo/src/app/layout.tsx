@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import FooterNavigation from "./TelaLogin/TelaHome/TelaPerfil/Componentes/FooterNavigation";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>{children}
         {/* <Footer /> */}
-        <FooterNavigation />
+        {/* <FooterNavigation /> */}
       </body>
 
     </html>

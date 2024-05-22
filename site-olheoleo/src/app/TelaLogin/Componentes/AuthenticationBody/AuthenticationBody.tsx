@@ -4,7 +4,6 @@ import { useState } from "react";
 
 
 
-
 export default function AuthenticationBody() {
 
   interface IcorpoRequest {
@@ -41,8 +40,6 @@ export default function AuthenticationBody() {
       alert("Preencha o campo de Senha");
     } return 0;
   }
-
-
 
 
   return (

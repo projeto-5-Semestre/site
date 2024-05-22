@@ -22,10 +22,6 @@ const footerNavigation = () => {
                     <TiSpanner className='text-zinc-400 text-xl hover:text-emerald-400 cursor-pointer' />
                 </Link>
 
-                {/* <Link href='/TelaLogin/TelaHome/TelaHistoricoAgendamento'>
-                    <MdLocationPin className='text-zinc-400 text-xl hover:text-emerald-400 cursor-pointer' />
-                </Link> */}
-
                 <Link href='/TelaLogin/TelaHome/TelaPerfil'>
                     <FaUserCircle className='text-zinc-400 text-xl hover:text-emerald-400 cursor-pointer' />
                 </Link>
