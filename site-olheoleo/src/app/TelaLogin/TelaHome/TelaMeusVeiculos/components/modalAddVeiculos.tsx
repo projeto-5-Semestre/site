@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Button_AddFoto from './Button_AddFoto';
 import { IoCloseCircle } from 'react-icons/io5';
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 
 interface VeiculoForm {
   modelo: string;
@@ -23,7 +23,8 @@ interface Modal_AddVeiculosProps {
 
 export default function Modal_AddVeiculos({
   isOpen, onClose, onAdd }: Modal_AddVeiculosProps) {
-  const url = 'http://localhost:3000/veiculos';
+  const url = 'http://localhost:3000/usuarios';
+  const router = useRouter();
 
   const [selectedImage, setSelectedImage] = useState<string>(() => {
     if (typeof window !== 'undefined') {
@@ -42,17 +43,43 @@ export default function Modal_AddVeiculos({
   const { register, handleSubmit, formState: { errors }, reset } = useForm<VeiculoForm>();
 
   const onSubmit: SubmitHandler<VeiculoForm> = async (data) => {
+    const email = localStorage.getItem('userEmail') || '';
+
     try {
-      await axios.post(url, {
-        ...data, url_imagem: selectedImage,
-      });
-      onAdd();
-      onClose();
-      reset();
-      setSelectedImage('/car.jpg');
+      const response = await axios.get(`${url}?email=${email}`);
+      const user = response.data[0];
+
+      if (user && user.veiculos) {
+        const placaExists = user.veiculos.some((veiculo: VeiculoForm) => veiculo.placa === data.placa);
+        if (placaExists) {
+          alert('Veículo já cadastrado');
+          return;
+        } else {
+
+          const newVeiculo = {
+            id: Date.now().toString(),
+            modelo: data.modelo,
+            url_imagem: selectedImage,
+            quilometragem: data.quilometragem,
+            placa: data.placa,
+            tipo_oleo: data.tipo_oleo,
+          };
+          const updatedVeiculo = [...user.veiculos, newVeiculo];
+
+          await axios.put(`${url}/${user.id}`, {
+            ...user,
+            veiculos: updatedVeiculo,
+          });
+          onClose();
+          reset();
+          setSelectedImage('/car.jpg');
+          onAdd();
+        }
+      }
     } catch (error) {
       console.log(error);
     }
+
   };
 
   return (

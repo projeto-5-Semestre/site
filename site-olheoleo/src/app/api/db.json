@@ -1,44 +1,67 @@
 {
-  "veiculos": [
+  "usuarios": [
     {
-      "id": "2",
-      "modelo": "Ford Fusion",
-      "url_imagem": "https://w7.pngwing.com/pngs/303/657/png-transparent-ford-fusion-hybrid-2013-ford-fusion-car-2014-ford-fusion-car-compact-car-sedan-headlamp.png",
-      "quilometragem": "70.000",
-      "placa": "DEF-5678",
-      "tipo_oleo": ""
+      "id": "user1",
+      "nome": "Joao",
+      "email": "joao@exemplo.com",
+      "senha": "senha123",
+      "cpf": "00122314456",
+      "telefone": "12981010101",
+      "veiculos": [
+        {
+          "id": "1716040632499",
+          "modelo": "AA",
+          "url_imagem": "/car.jpg",
+          "quilometragem": "50",
+          "placa": "A2",
+          "tipo_oleo": "Novo"
+        }
+      ]
     },
     {
-      "id": "3",
-      "modelo": "Volkswagen Gol",
-      "url_imagem": "https://w7.pngwing.com/pngs/465/864/png-transparent-volkswagen-gol-car-vw-saveiro-volkswagen-polo-volkswagen-compact-car-car-volkswagen.png",
-      "quilometragem": "40.500",
-      "placa": "GHI-9012",
-      "tipo_oleo": "Usado"
+      "id": "user2",
+      "nome": "Ze",
+      "email": "ze@exemplo.com",
+      "senha": "senha123",
+      "cpf": "00222314456",
+      "telefone": "15981010101",
+      "veiculos": [
+        {
+          "id": "1715984973976",
+          "modelo": "novoTe",
+          "url_imagem": "/car.jpg",
+          "quilometragem": "122",
+          "placa": "a1b2",
+          "tipo_oleo": "as"
+        }
+      ]
     },
     {
-      "id": "4",
-      "modelo": "Honda Civic",
-      "url_imagem": "https://w7.pngwing.com/pngs/64/833/png-transparent-2018-honda-fit-car-2018-honda-civic-lx-2018-honda-civic-sedan-honda-compact-car-sedan-car.png",
-      "quilometragem": "60.100",
-      "placa": "JKL-3456",
-      "tipo_oleo": "Novo"
+      "id": "fdb8",
+      "nome": "SeleniumT",
+      "cpf": "00145652445",
+      "email": "teste_selenium@email.com",
+      "telefone": "12900112233",
+      "senha": "senha12",
+      "veiculos": []
     },
     {
-      "id": "3bdb",
-      "modelo": "Ford",
-      "placa": "asd-123",
-      "quilometragem": "4505",
-      "tipo_oleo": "Velho",
-      "url_imagem": "/car.jpg"
-    },
-    {
-      "id": "4383",
-      "modelo": "Fox",
-      "placa": "452caa",
-      "quilometragem": "4521",
-      "tipo_oleo": "Velho",
-      "url_imagem": "/car.jpg"
+      "id": "2f99",
+      "nome": "Teste Manual",
+      "cpf": "12345678999",
+      "email": "teste_manual@email.com",
+      "telefone": "12945566555",
+      "senha": "12345",
+      "veiculos": [
+        {
+          "id": "1716147616871",
+          "modelo": "Teste doManual",
+          "url_imagem": "/car.jpg",
+          "quilometragem": "4566",
+          "placa": "a1b2c3",
+          "tipo_oleo": "Usado"
+        }
+      ]
     }
   ]
 }
