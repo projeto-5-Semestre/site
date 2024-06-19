@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import { useState } from "react";
 import { IoReorderThree, IoCloseSharp } from "react-icons/io5";
 import SidebarMenu from './SidebarMenu';

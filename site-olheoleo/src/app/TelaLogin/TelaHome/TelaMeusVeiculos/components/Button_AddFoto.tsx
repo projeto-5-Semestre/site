@@ -28,7 +28,7 @@ export default function Button_AddFoto({ selectedImage, setSelectedImage }: Butt
   };
 
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <Button
         component="label"
         role={undefined}

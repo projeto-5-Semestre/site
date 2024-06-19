@@ -1,67 +1,40 @@
 {
   "usuarios": [
     {
-      "id": "user1",
-      "nome": "Joao",
-      "email": "joao@exemplo.com",
-      "senha": "senha123",
-      "cpf": "00122314456",
-      "telefone": "12981010101",
+      "id": "1ac1",
+      "nome": "Conta Teste",
+      "cpf": "42655544423",
+      "email": "teste_@email.com",
+      "telefone": "88941415252",
+      "password": "123",
       "veiculos": [
         {
-          "id": "1716040632499",
-          "modelo": "AA",
-          "url_imagem": "/car.jpg",
-          "quilometragem": "50",
-          "placa": "A2",
-          "tipo_oleo": "Novo"
+          "id": "1718711947657",
+          "modelo": "NOVO V",
+          "url_imagem": "blob:http://localhost:3001/ffcbcd24-37ba-4a3d-a397-db5fb73cc9ff",
+          "quilometragem": "4562",
+          "placa": "a41a",
+          "tipo_oleo": "novo"
         }
       ]
     },
     {
-      "id": "user2",
-      "nome": "Ze",
-      "email": "ze@exemplo.com",
-      "senha": "senha123",
-      "cpf": "00222314456",
-      "telefone": "15981010101",
-      "veiculos": [
-        {
-          "id": "1715984973976",
-          "modelo": "novoTe",
-          "url_imagem": "/car.jpg",
-          "quilometragem": "122",
-          "placa": "a1b2",
-          "tipo_oleo": "as"
-        }
-      ]
-    },
-    {
-      "id": "fdb8",
-      "nome": "SeleniumT",
-      "cpf": "00145652445",
-      "email": "teste_selenium@email.com",
-      "telefone": "12900112233",
-      "senha": "senha12",
+      "id": "",
+      "nome": "aw",
+      "cpf": "123",
+      "email": "user@email.com",
+      "telefone": "12234",
+      "password": "123",
       "veiculos": []
     },
     {
-      "id": "2f99",
-      "nome": "Teste Manual",
-      "cpf": "12345678999",
-      "email": "teste_manual@email.com",
-      "telefone": "12945566555",
-      "senha": "12345",
-      "veiculos": [
-        {
-          "id": "1716147616871",
-          "modelo": "Teste doManual",
-          "url_imagem": "/car.jpg",
-          "quilometragem": "4566",
-          "placa": "a1b2c3",
-          "tipo_oleo": "Usado"
-        }
-      ]
+      "id": "",
+      "nome": "Novo",
+      "cpf": "456132",
+      "email": "testen@email.com",
+      "telefone": "88556",
+      "password": "12345",
+      "veiculos": []
     }
   ]
 }
