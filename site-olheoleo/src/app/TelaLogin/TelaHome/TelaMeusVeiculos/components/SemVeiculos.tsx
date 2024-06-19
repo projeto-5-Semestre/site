@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Slider from "react-slick";
-import HeaderNavigation from "./HeaderNavigation";
+import HeaderNavigation from "../../../../../components/HeaderNavigation";
 import { useEffect, useState } from "react";
 import Modal_AddVeiculos from "./modalAddVeiculos";
 import axios from "axios";
-import { Veiculo } from "../page";
+import { Veiculo } from "@/hooks/useVeiculos";
 
 export default function SemVeiculos() {
   const url = 'http://localhost:3000/usuarios';
@@ -49,11 +49,11 @@ export default function SemVeiculos() {
   }, [reloadPage])
 
   return (
-    <main className="flex w-auto h-screen bg-fund px-0 py-0 flex-col">
+    <main className="flex w-auto h-[100%] bg-fund flex-col">
       <HeaderNavigation />
       {veiculos.length === 0 &&(
         <>
-          <div className="flex justify-center items-center w-full mt-20">
+          <div className="w-full mt-20">
             <Slider
               dots={true}
               fade={true}
@@ -67,7 +67,7 @@ export default function SemVeiculos() {
               centerMode={true}
               className="flex w-full justify-center items-center"
             >
-              <div className="flex justify-center items-center">
+              <div className="">
                 <img src="/car2.jpg" alt="carro2" />
               </div>
               <div className="flex justify-center items-center">
@@ -78,9 +78,10 @@ export default function SemVeiculos() {
               </div>
             </Slider>
           </div>
-          <div className="flex justify-center items-center mt-48">
+          <div className="flex justify-center items-center mt-[40%]">
             <button
-              className="flex justify-center items-center bg-txt text-grid w-40 h-20 mt-26"
+              className="flex justify-center items-center bg-txt text-grid w-40 h-20 border
+              rounded-md shadow-sm"
               onClick={() => setOpenModalAddVeiculo(true)}
             >
               Adicionar Veículo

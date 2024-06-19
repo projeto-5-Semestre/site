@@ -1,11 +1,13 @@
+// modalAddVeiculos.tsx
 "use client"
 import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler, set } from 'react-hook-form';
 import Image from 'next/image';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
+
+import useVeiculos, { Veiculo } from '@/hooks/useVeiculos';
 import Button_AddFoto from './Button_AddFoto';
 import { IoCloseCircle } from 'react-icons/io5';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
 
 interface VeiculoForm {
   modelo: string;
@@ -23,8 +25,8 @@ interface Modal_AddVeiculosProps {
 
 export default function Modal_AddVeiculos({
   isOpen, onClose, onAdd }: Modal_AddVeiculosProps) {
-  const url = 'http://localhost:3000/usuarios';
-  const router = useRouter();
+  const { data: session, status } = useSession();
+  const { createVeiculo } = useVeiculos('http://localhost:3000/usuarios');
 
   const [selectedImage, setSelectedImage] = useState<string>(() => {
     if (typeof window !== 'undefined') {
@@ -34,53 +36,47 @@ export default function Modal_AddVeiculos({
     return '/car.jpg';
   });
 
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<VeiculoForm>();
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('selectedImage', selectedImage);
     }
   }, [selectedImage]);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<VeiculoForm>();
-
   const onSubmit: SubmitHandler<VeiculoForm> = async (data) => {
-    const email = localStorage.getItem('userEmail') || '';
-
-    try {
-      const response = await axios.get(`${url}?email=${email}`);
-      const user = response.data[0];
-
-      if (user && user.veiculos) {
-        const placaExists = user.veiculos.some((veiculo: VeiculoForm) => veiculo.placa === data.placa);
-        if (placaExists) {
-          alert('Veículo já cadastrado');
-          return;
-        } else {
-
-          const newVeiculo = {
-            id: Date.now().toString(),
-            modelo: data.modelo,
-            url_imagem: selectedImage,
-            quilometragem: data.quilometragem,
-            placa: data.placa,
-            tipo_oleo: data.tipo_oleo,
-          };
-          const updatedVeiculo = [...user.veiculos, newVeiculo];
-
-          await axios.put(`${url}/${user.id}`, {
-            ...user,
-            veiculos: updatedVeiculo,
-          });
-          onClose();
-          reset();
-          setSelectedImage('/car.jpg');
-          onAdd();
-        }
-      }
-    } catch (error) {
-      console.log(error);
+    if (!session?.user?.email) {
+      console.log('Dados nao encontrados na sessão');
+      return;
     }
 
-  };
+    try {
+      const newVeiculo: Veiculo = {
+        id: Date.now().toString(),
+        modelo: data.modelo,
+        url_imagem: selectedImage,
+        quilometragem: data.quilometragem,
+        placa: data.placa,
+        tipo_oleo: data.tipo_oleo,
+      };
+
+      await createVeiculo(newVeiculo);
+      onClose();
+      reset();
+      setSelectedImage('/car.jpg');
+      onAdd();
+    } catch (error) {
+      console.log('Erro ao adicionar veículo:', error);
+    }
+  }
+
+  if (status === 'loading') {
+    return <div>Carregando...</div>;
+  }
+
+  if (status === 'unauthenticated') {
+    return <div>Usuário não autenticado.</div>;
+  }
 
   return (
     <>
