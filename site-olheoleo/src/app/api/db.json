@@ -1,0 +1,40 @@
+{
+  "usuarios": [
+    {
+      "id": "1ac1",
+      "nome": "Conta Teste",
+      "cpf": "42655544423",
+      "email": "teste_@email.com",
+      "telefone": "88941415252",
+      "password": "123",
+      "veiculos": [
+        {
+          "id": "1718711947657",
+          "modelo": "NOVO V",
+          "url_imagem": "blob:http://localhost:3001/ffcbcd24-37ba-4a3d-a397-db5fb73cc9ff",
+          "quilometragem": "4562",
+          "placa": "a41a",
+          "tipo_oleo": "novo"
+        }
+      ]
+    },
+    {
+      "id": "",
+      "nome": "aw",
+      "cpf": "123",
+      "email": "user@email.com",
+      "telefone": "12234",
+      "password": "123",
+      "veiculos": []
+    },
+    {
+      "id": "",
+      "nome": "Novo",
+      "cpf": "456132",
+      "email": "testen@email.com",
+      "telefone": "88556",
+      "password": "12345",
+      "veiculos": []
+    }
+  ]
+}

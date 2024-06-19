@@ -1,48 +1,46 @@
 'use client'
 import Link from "next/link";
-import {  useState } from "react";
+import { useState } from "react";
 
 
 
 export default function AuthenticationBody() {
-    
-    interface IcorpoRequest  {
-        email : string
-        senha : string
+
+  interface IcorpoRequest {
+    email: string
+    senha: string
+  }
+
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
+
+  function recebeEmail() {
+
+    let inputEmail = document.getElementById("email") as HTMLInputElement || null;
+    let valueEmail = inputEmail.value;
+
+    let inputSenha = document.getElementById("password") as HTMLInputElement || null;
+    let valueSenha = inputSenha.value;
+
+    if (valueEmail) {
+      valueEmail.toString();
+      if (valueEmail !== "") {
+        console.log(valueEmail);
+      }
+    } else {
+      alert("Preencha o campo de e-mail");
     }
 
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
+    if (valueSenha) {
+      valueSenha.toString();
+      if (valueSenha !== "") {
+        console.log(valueSenha);
+      }
+    } else {
+      alert("Preencha o campo de Senha");
+    } return 0;
+  }
 
-    function recebeEmail(){
-
-        let inputEmail = document.getElementById("email") as HTMLInputElement || null;
-        let valueEmail = inputEmail.value;
-
-        let inputSenha = document.getElementById("password") as HTMLInputElement || null;
-        let valueSenha = inputSenha.value;
-    
-        if(valueEmail){
-            valueEmail.toString();
-            if(valueEmail !== ""){
-                console.log(valueEmail);
-            }
-        } else {
-            alert("Preencha o campo de e-mail");
-        } 
-
-        if(valueSenha){
-            valueSenha.toString();
-            if(valueSenha !== ""){
-                console.log(valueSenha);
-            }
-        } else {
-            alert("Preencha o campo de Senha");
-        } return 0;
-    }    
-
-    
-    
 
   return (
     <form className="space-y-6" action="#" method="POST">
