@@ -11,7 +11,7 @@ import Modal_AddVeiculos from "./components/modalAddVeiculos";
 import HeaderNavigation from "../../../../components/HeaderNavigation";
 import SemVeiculos from "./components/SemVeiculos";
 import VeiculoForm from "./components/VeiculoForm";
-import useVeiculos, { Veiculo} from "@/hooks/useVeiculos";
+import useVeiculos, { Veiculo } from "@/hooks/useVeiculos";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -52,6 +52,7 @@ export default function Main() {
   const [openMais, setOpenMais] = useState(false);
 
   const { veiculos, deleteVeiculo, handleEditVeiculo, handleSaveChanges, handleToggleEditMode, handleChange, getVeiculos, editedVeiculo, isEditMode } = useVeiculos("http://localhost:3000/usuarios");
+  const { createVeiculo } = useVeiculos("http://localhost:3000/usuarios");
 
   useEffect(() => {
     if (session?.user?.email) {
@@ -70,22 +71,29 @@ export default function Main() {
     setOpenMais(false);
   }
 
+  const handleAddVeiculo = async (email: string, newVeiculo: Veiculo) => {
+    try {
+      await createVeiculo(email, newVeiculo);
+      await getVeiculos(email);
+      setOpenModalAddVeiculo(false);
+    } catch (error) {
+      console.log('Erro ao adicionar veículo', error);
+    }
+  }
+
 
   if (!session?.user?.email) {
     return <p>Carregando...</p>
   }
 
   if (veiculos.length == 0) {
-    return (
-      <SemVeiculos />
-    );
-    
+    return <SemVeiculos />;
   } else {
     return (
       <ThemeProvider theme={theme}>
         <main className="flex flex-col w-full h-full bg-fund">
           <HeaderNavigation />
-          <div className="flex flex-col space-y-4 justify-center items-center w-screen pb-3 mx-1 mb-8">
+          <div className="flex flex-col space-y-4 justify-center items-center w-screen h-full pb-3 mx-1 mb-8">
             <Slider
               dots={false}
               infinite={false}
@@ -99,7 +107,7 @@ export default function Main() {
                 veiculos.map((veiculo) => (
                   <div key={veiculo.id}>
                     {/* Dropdown */}
-                    <div className="flex justify-end items-center mr-5 mt-1">
+                    <div className="flex justify-end items-center mr-5 mt-2">
                       <div className="relative items-center justify-center">
                         {/* Botão de dropdown */}
                         <img
@@ -141,10 +149,10 @@ export default function Main() {
                           <h1>Meus Veículos</h1>
                         </div>
                       </header>
-                      {/* <div className="absolute w-[180px] h-[180px] bg-shad opacity-100 transform -skew-x-12 -bottom-1 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" /> */}
+                      <div className="absolute w-[180px] h-[150px] bg-shad opacity-100 transform -skew-x-12 bottom-[680px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10" />
                       <div className="inset-0 flex justify-center items-center">
                         <Image
-                          className="object-contain max-w-full max-h-full z-30"
+                          className="object-contain max-w-full max-h-full z-20"
                           src={veiculo.url_imagem}
                           width={250}
                           height={250}
@@ -182,11 +190,9 @@ export default function Main() {
           <Modal_AddVeiculos
             isOpen={openModalAddVeiculo}
             onClose={handleCloseModalAddVeiculo}
-            onAdd={() => {
-              const email = session.user?.email || '';
-              getVeiculos(email);
-            }}
-            // session={session}
+            onAdd={
+              handleAddVeiculo
+            }
           />
         </main >
       </ThemeProvider>

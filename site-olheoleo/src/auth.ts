@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from 'axios';
 
-export interface User {
+export type User = {
   id: string;
-  nome: string;
+  name: string;
   cpf: string;
   email: string;
   telefone: string;
@@ -16,6 +16,7 @@ export interface LoginResponse {
   success: boolean;
   user?: {
     id: string;
+    name: string;
     email: string;
     password: string;
   };
@@ -37,6 +38,7 @@ const authOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        name: { label: "Nome", type: "text" },
       },
       authorize: async (credentials) => {
         const email = credentials?.email;
@@ -52,7 +54,7 @@ const authOptions = {
           });
 
           const users = response.data;
-          const user = users.find((user: any) => user.email === email && user.password === password);
+          const user = users.find((user: User) => user.email === email && user.password === password);
 
           if (user) {
             return user;
@@ -67,17 +69,19 @@ const authOptions = {
     })
   ],
   pages: {
-    signIn: "/TelaLogin/TelaMeusVeiculos",
-    signOut: "/TelaLogin",
+    signIn: "/TelaLogin",
+    signOut: "/",
     error: "/TelaLogin",
     verifyRequest: "/TelaLogin",
     newUser: "/TelaLogin",
   },
   callbacks: {
-    async session({ session, token }: { session: any, token: any}) {
+    async session({ session, token }: { session: any, token: any }) {
       if (token) {
         session.user.id = token.id;
         session.user.email = token.email;
+        session.user.nome = token.nome;
+        console.log('Session:', session);
       }
       return session;
     },
@@ -85,6 +89,8 @@ const authOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.nome = user.nome;
+        console.log('JWT token:', token);
       }
       return token;
     },
@@ -131,11 +137,9 @@ export const register = async (userData: User): Promise<RegisterResponse> => {
     }
 
     const response = await axios.post(url, userData);
-    alert('Cadastrado Realizado');
     return { success: true, user: response.data };
   } catch (error) {
-    console.error('Error durante o cadastro:', error);
-    alert('Erro ao cadastrar');
+    console.error('Error during registration:', error);
     return { success: false };
   }
 };

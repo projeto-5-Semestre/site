@@ -26,20 +26,20 @@ export default function SidebarMenu() {
       <Link href="/TelaLogin/TelaHome/TelaAgendamento">
         <div className="flex items-center border-b border-stone-900 w-screen py-2 ">
           <img src="/calendarioIcon.svg" alt="" className="cursor-pointer mr-2" />
-          <p>Agendamento</p>
+          <p>Meus Agendamentos</p>
         </div>
       </Link>
       <Link href="/TelaLogin/TelaHome/TelaPerfil">
         <div className="flex items-center border-b border-stone-900 w-screen py-2">
-          <CgProfile className='cursor-pointer mr-2' />
+          <CgProfile className='cursor-pointer mr-2 w-[40px] h-[40px]' style={{fontSize: '40px'}} />
           <p>Perfil</p>
         </div>
       </Link>
-      <Link href="/TelaLogin">
-        <button onClick={handleLogout} className="flex items-center border-b border-stone-900 w-screen py-2 cursor-pointer">
+      <Link href="/">
+        <div onClick={handleLogout} className="flex items-center border-b border-stone-900 w-screen py-2 cursor-pointer">
           <img src="/loginIcon.svg" alt="" className="cursor-pointer mr-2" />
-          Sair
-        </button>
+          <p>Sair</p>
+        </div>
 
       </Link>
     </div>
