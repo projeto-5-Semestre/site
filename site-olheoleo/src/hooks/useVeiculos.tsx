@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios'; 
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { User } from '@/auth';
 
 export type Veiculo = {
   id: string,
@@ -12,6 +13,11 @@ export type Veiculo = {
   quilometragem: string,
   placa: string,
   tipo_oleo: string,
+  modelo_ultimo_oleo: string;
+  filtro_oleo: string;
+  filtro_ar: string;
+  filtro_combustivel: string;
+  filtro_cambio: string;
 }
 
 const useVeiculos = (apiUrl: string) => {
@@ -19,13 +25,13 @@ const useVeiculos = (apiUrl: string) => {
   const router = useRouter();
   const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
   const [editedVeiculo, setEditedVeiculo] = useState<Veiculo | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User>();
   const [isEditMode, setIsEditMode] = useState(false);
 
   async function getVeiculos(email: string) {
     try {
       const response = await axios.get(apiUrl);
-      const usuarios = response.data.find((usuarios: any) => usuarios.email === email);
+      const usuarios = response.data.find((usuarios: User) => usuarios.email === email);
       if (usuarios) {
         setVeiculos(usuarios.veiculos || []);
         setUser(usuarios);
@@ -35,43 +41,52 @@ const useVeiculos = (apiUrl: string) => {
     }
   };
 
-  const createVeiculo = async (newVeiculo: Veiculo) => {
+  const createVeiculo = async (email: string, veiculo: Veiculo) => {
     try {
-      const email = session?.user?.email || '';
-
-      if (!email) {
-        throw new Error('Email do usuário não encontrado na sessão');
-      }
-
       const response = await axios.get(`${apiUrl}?email=${email}`);
-
-      if (response.data.length === 0) {
-        throw new Error('Usuário não encontrado');
-      }
-
       const user = response.data[0];
 
-      const updatedVeiculos = user.veiculos ? [...user.veiculos, newVeiculo] : [newVeiculo];
-
-      const putUrl = `${apiUrl}/${user.id}`;
-
-      await axios.put(putUrl, {
-        ...user,
-        veiculos: updatedVeiculos,
-      });
-
-      setVeiculos(updatedVeiculos);
-      setUser({ ...user, veiculos: updatedVeiculos });
+      if (user) {
+        user.veiculos.push(veiculo);
+        await axios.put(`${apiUrl}/${user.id}`, user);
+      } else {
+        throw new Error('Usuário não encontrado');
+      }
     } catch (error) {
-      handleAxiosError(error); 
+      console.error('Erro ao adicionar veículo:', error);
+      throw error;
     }
   };
+
+  //     const email = session?.user?.email || '';
+  //     if (!email) {
+  //       throw new Error('Email do usuário não encontrado na sessão');
+  //     }
+  //     const response = await axios.get(`${apiUrl}?email=${email}`);
+  //     if (response.data.length === 0) {
+  //       throw new Error('Usuário não encontrado');
+  //     }
+  //     const user = response.data[0];
+  //     const updatedVeiculos = user.veiculos ? [...user.veiculos, newVeiculo] : [newVeiculo];
+  //     const putUrl = `${apiUrl}/${user.id}`;
+
+  //     await axios.put(putUrl, {
+  //       ...user,
+  //       veiculos: updatedVeiculos,
+  //     });
+
+  //     setVeiculos(updatedVeiculos);
+  //     setUser({ ...user, veiculos: updatedVeiculos });
+  //   } catch (error) {
+  //     handleAxiosError(error); 
+  //   }
+  // };
 
   const deleteVeiculo = async (id: string) => {
     try {
       const email = session?.user?.email || '';
       const response = await axios.get(`${apiUrl}`);
-      const user = response.data.find((usuarios: any) => usuarios.email === email);
+      const user = response.data.find((usuarios: User) => usuarios.email === email);
       if (user) {
         const updatedVeiculos = user.veiculos.filter(
           (veiculo: Veiculo) => veiculo.id !== id
@@ -96,7 +111,7 @@ const useVeiculos = (apiUrl: string) => {
     try {
       const email = session?.user?.email || '';
       const response = await axios.get(apiUrl);
-      const user = response.data.find((usuarios: any) => usuarios.email === email);
+      const user = response.data.find((usuarios: User) => usuarios.email === email);
       if (user && editedVeiculo) {
         const updatedVeiculos = user.veiculos.map((veiculo: Veiculo) =>
           veiculo.id === editedVeiculo.id ? { ...editedVeiculo } : veiculo
@@ -110,7 +125,7 @@ const useVeiculos = (apiUrl: string) => {
         setIsEditMode(false);
       }
     } catch (error) {
-      handleAxiosError(error); // Tratar o erro de Axios
+      handleAxiosError(error); 
     }
   };
 
@@ -132,7 +147,7 @@ const useVeiculos = (apiUrl: string) => {
   useEffect(() => {
     const email = session?.user?.email || '';
     if (!email) {
-      router.push('/TelaLogin');
+      // router.push('/TelaLogin');
     } else {
       getVeiculos(email);
     }

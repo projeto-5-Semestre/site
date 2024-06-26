@@ -1,33 +1,23 @@
-import Link from 'next/link';
+import Image from 'next/image';
 
-import { MdLocationPin, MdShoppingCart } from "react-icons/md";
-import { FaUserCircle } from "react-icons/fa";
-import { IoMdCar, IoIosHome } from "react-icons/io";
-import { TiSpanner } from "react-icons/ti";
-
-const footerNavigation = () => {
+const FooterNavigation = () => {
     return (
-
-        <main className='bg-neutral-900'>
-            <div className='bg-white flex items-center justify-center gap-14 p-4 border-t border-zinc-200'>
-                <Link href='/'>
-                    <IoIosHome className='text-zinc-400 text-2xl hover:text-emerald-400 cursor-pointer' />
-                </Link>
-
-                <Link href='/TelaLogin/TelaHome/TelaMeusVeiculos'>
-                    <IoMdCar className='text-zinc-400 text-2xl hover:text-emerald-400 cursor-pointer' />
-                </Link>
-
-                <Link href='/TelaLogin/TelaHome/TelaAgendamento'>
-                    <TiSpanner className='text-zinc-400 text-xl hover:text-emerald-400 cursor-pointer' />
-                </Link>
-
-                <Link href='/TelaLogin/TelaHome/TelaPerfil'>
-                    <FaUserCircle className='text-zinc-400 text-xl hover:text-emerald-400 cursor-pointer' />
-                </Link>
+        <footer className="bg-txt w-full h-1/5 flex flex-col justify-between fixed bottom-0">
+            <div className="flex items-center justify-center text p-2">
+                <div className="flex items-center">
+                    <Image src="/logo.png" alt="Ícone" width={150} height={60} />
+                </div>
+                <div className="flex flex-col items-center text-sm md:text-base">
+                    <span>Av. Bahia, 1739 - Indaiá, Caraguatatuba - SP, 11665-071</span>
+                    <span>olheeoleo@gmail.com.br</span>
+                    <span>(00) 0 0000-0000 | (00) 0 0000-0000</span>
+                </div>
             </div>
-        </main>
+            <div className="text-center pb-2">
+                <span className="text-xs md:text-sm">Copyright © 2024</span>
+            </div>
+        </footer>
     );
 }
 
-export default footerNavigation;
+export default FooterNavigation;

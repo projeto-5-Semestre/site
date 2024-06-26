@@ -1,4 +1,3 @@
-// modalAddVeiculos.tsx
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -15,18 +14,23 @@ interface VeiculoForm {
   placa: string;
   quilometragem: string;
   tipo_oleo: string;
+  modelo_ultimo_oleo: string;
+  filtro_oleo: string;
+  filtro_ar: string;
+  filtro_combustivel: string;
+  filtro_cambio: string;
 }
 
 interface Modal_AddVeiculosProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: () => void;
+  onAdd: (email: string, veiculo: Veiculo) => void;
 }
 
 export default function Modal_AddVeiculos({
   isOpen, onClose, onAdd }: Modal_AddVeiculosProps) {
   const { data: session, status } = useSession();
-  const { createVeiculo } = useVeiculos('http://localhost:3000/usuarios');
+
   const router = useRouter();
 
   const [selectedImage, setSelectedImage] = useState<string>(() => {
@@ -36,6 +40,12 @@ export default function Modal_AddVeiculos({
     }
     return '/car.jpg';
   });
+
+  const formatPlaca = (value: string) => {
+    const regex = /^[A-Z]{3}[0-9][A-Z][0-9]{2}$/;
+    return regex.test(value);
+  };
+
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<VeiculoForm>();
 
@@ -51,6 +61,11 @@ export default function Modal_AddVeiculos({
       return;
     }
 
+    if (!formatPlaca(data.placa)) {
+      alert('A placa deve estar no formato MERCOSUL: ABC1D23');
+      return;
+    }
+
     try {
       const newVeiculo: Veiculo = {
         id: Date.now().toString(),
@@ -59,13 +74,18 @@ export default function Modal_AddVeiculos({
         quilometragem: data.quilometragem,
         placa: data.placa,
         tipo_oleo: data.tipo_oleo,
+        modelo_ultimo_oleo: data.modelo_ultimo_oleo,
+        filtro_oleo: data.filtro_oleo,
+        filtro_ar: data.filtro_ar,
+        filtro_combustivel: data.filtro_combustivel,
+        filtro_cambio: data.filtro_cambio,
       };
 
-      await createVeiculo(newVeiculo);
+      await onAdd(session.user.email, newVeiculo);
       onClose();
       reset();
       setSelectedImage('/car.jpg');
-      onAdd();
+
       router.push('/TelaLogin/TelaHome/TelaMeusVeiculos')
     } catch (error) {
       console.log('Erro ao adicionar veículo:', error);
@@ -133,6 +153,36 @@ export default function Modal_AddVeiculos({
                     placeholder="Tipo de Óleo"
                     {...register('tipo_oleo', { required: true })}
                     className={`mt-3 p-2 w-full border ${errors.tipo_oleo ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                  />
+                   <input
+                    type="text"
+                    placeholder="Modelo do Último Óleo"
+                    {...register('modelo_ultimo_oleo', { required: true })}
+                    className={`mt-3 p-2 w-full border ${errors.modelo_ultimo_oleo ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Filtro de Óleo"
+                    {...register('filtro_oleo', { required: false })}
+                    className={`mt-3 p-2 w-full border ${errors.filtro_oleo ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Filtro de Ar"
+                    {...register('filtro_ar', { required: false })}
+                    className={`mt-3 p-2 w-full border ${errors.filtro_ar ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Filtro de Combustível"
+                    {...register('filtro_combustivel', { required: false })}
+                    className={`mt-3 p-2 w-full border ${errors.filtro_combustivel ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Filtro de Câmbio"
+                    {...register('filtro_cambio', { required: false })}
+                    className={`mt-3 p-2 w-full border ${errors.filtro_cambio ? 'border-red-500' : 'border-gray-300'} rounded-md text-black`}
                   />
                   <button
                     type="submit"

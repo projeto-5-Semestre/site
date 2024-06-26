@@ -2,7 +2,7 @@
   "usuarios": [
     {
       "id": "1ac1",
-      "nome": "Conta Teste",
+      "name": "Conta Teste",
       "cpf": "42655544423",
       "email": "teste_@email.com",
       "telefone": "88941415252",
@@ -27,20 +27,34 @@
       ]
     },
     {
-      "id": "",
-      "nome": "tte",
-      "cpf": "234",
-      "email": "ff@email.com",
-      "telefone": "22",
-      "password": "123",
-      "veiculos": []
-    },
-    {
-      "id": "",
-      "nome": "asdsa",
+      "id": "233dd",
+      "name": "Ze",
       "cpf": "333",
       "email": "aas@email.com",
       "telefone": "112",
+      "password": "123",
+      "veiculos": [
+        {
+          "id": "1719427385042",
+          "modelo": "Teste",
+          "url_imagem": "/car.jpg",
+          "quilometragem": "123",
+          "placa": "NAS2D32",
+          "tipo_oleo": "Usado",
+          "modelo_ultimo_oleo": "Shel",
+          "filtro_oleo": "Trocado",
+          "filtro_ar": "Front",
+          "filtro_combustivel": "Easy",
+          "filtro_cambio": "Usado"
+        }
+      ]
+    },
+    {
+      "id": "",
+      "name": "testee",
+      "cpf": "123.456.789-99",
+      "email": "testee@email.com",
+      "telefone": "(12) 98554-6666",
       "password": "123",
       "veiculos": []
     }

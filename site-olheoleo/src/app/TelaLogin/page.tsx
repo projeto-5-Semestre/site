@@ -3,7 +3,7 @@ import LoginForm from './components/LoginForm';
 
 const LoginPage = () => {
   return (
-    <div className="flex flex-col h-full bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100">
       <HeaderNavigation />
       <div className="flex-grow flex items-center justify-center h-[90%] pt-20">
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">

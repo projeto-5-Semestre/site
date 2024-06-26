@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export interface User {
   id: string;
-  nome: string;
+  name: string;
   cpf: string;
   email: string;
   telefone: string;
