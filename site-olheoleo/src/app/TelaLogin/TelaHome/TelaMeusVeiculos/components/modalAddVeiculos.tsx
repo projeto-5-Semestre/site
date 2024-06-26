@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-
 import useVeiculos, { Veiculo } from '@/hooks/useVeiculos';
 import Button_AddFoto from './Button_AddFoto';
 import { IoCloseCircle } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
 
 interface VeiculoForm {
   modelo: string;
@@ -27,6 +27,7 @@ export default function Modal_AddVeiculos({
   isOpen, onClose, onAdd }: Modal_AddVeiculosProps) {
   const { data: session, status } = useSession();
   const { createVeiculo } = useVeiculos('http://localhost:3000/usuarios');
+  const router = useRouter();
 
   const [selectedImage, setSelectedImage] = useState<string>(() => {
     if (typeof window !== 'undefined') {
@@ -45,7 +46,7 @@ export default function Modal_AddVeiculos({
   }, [selectedImage]);
 
   const onSubmit: SubmitHandler<VeiculoForm> = async (data) => {
-    if (!session?.user?.email) {
+    if (!session?.user?.email || !session?.user) {
       console.log('Dados nao encontrados na sessão');
       return;
     }
@@ -65,6 +66,7 @@ export default function Modal_AddVeiculos({
       reset();
       setSelectedImage('/car.jpg');
       onAdd();
+      router.push('/TelaLogin/TelaHome/TelaMeusVeiculos')
     } catch (error) {
       console.log('Erro ao adicionar veículo:', error);
     }

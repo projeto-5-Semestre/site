@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios'; 
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
@@ -27,33 +27,43 @@ const useVeiculos = (apiUrl: string) => {
       const response = await axios.get(apiUrl);
       const usuarios = response.data.find((usuarios: any) => usuarios.email === email);
       if (usuarios) {
-        setVeiculos(usuarios.veiculos);
+        setVeiculos(usuarios.veiculos || []);
         setUser(usuarios);
       }
     } catch (error) {
-      console.log(error);
+      handleAxiosError(error); 
     }
   };
 
   const createVeiculo = async (newVeiculo: Veiculo) => {
     try {
       const email = session?.user?.email || '';
+
+      if (!email) {
+        throw new Error('Email do usuário não encontrado na sessão');
+      }
+
       const response = await axios.get(`${apiUrl}?email=${email}`);
+
+      if (response.data.length === 0) {
+        throw new Error('Usuário não encontrado');
+      }
+
       const user = response.data[0];
 
-      if (user && user.veiculos) {
-        const updatedVeiculos = [...user.veiculos, newVeiculo];
+      const updatedVeiculos = user.veiculos ? [...user.veiculos, newVeiculo] : [newVeiculo];
 
-        await axios.put(`${apiUrl}/${user.id}`, {
-          ...user,
-          veiculos: updatedVeiculos,
-        });
+      const putUrl = `${apiUrl}/${user.id}`;
 
-        setVeiculos(updatedVeiculos);
-        setUser({ ...user, veiculos: updatedVeiculos });
-      }
+      await axios.put(putUrl, {
+        ...user,
+        veiculos: updatedVeiculos,
+      });
+
+      setVeiculos(updatedVeiculos);
+      setUser({ ...user, veiculos: updatedVeiculos });
     } catch (error) {
-      console.log('Erro ao criar veículo:', error);
+      handleAxiosError(error); 
     }
   };
 
@@ -74,7 +84,7 @@ const useVeiculos = (apiUrl: string) => {
         setUser({ ...user, veiculos: updatedVeiculos });
       }
     } catch (error) {
-      console.log(error);
+      handleAxiosError(error); 
     }
   };
 
@@ -100,7 +110,7 @@ const useVeiculos = (apiUrl: string) => {
         setIsEditMode(false);
       }
     } catch (error) {
-      console.log(error);
+      handleAxiosError(error); // Tratar o erro de Axios
     }
   };
 
@@ -114,7 +124,7 @@ const useVeiculos = (apiUrl: string) => {
   };
 
   const handleEditVeiculo = (veiculo: Veiculo) => {
-    console.log("editanto:", veiculo)
+    console.log("Editando:", veiculo);
     setEditedVeiculo({ ...veiculo });
     setIsEditMode(true);
   };
@@ -122,12 +132,21 @@ const useVeiculos = (apiUrl: string) => {
   useEffect(() => {
     const email = session?.user?.email || '';
     if (!email) {
-      router.push('/TelaLogin')
+      router.push('/TelaLogin');
     } else {
       getVeiculos(email);
     }
   }, [apiUrl, router, session]);
 
+  const handleAxiosError = (error: any) => {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      console.error('Erro de requisição:', axiosError.message);
+      console.error('Detalhes do erro:', axiosError.response?.data);
+    } else {
+      console.error('Erro desconhecido:', error);
+    }
+  };
 
   return {
     veiculos,
