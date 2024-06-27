@@ -7,8 +7,7 @@ export const login = async (email: string, password: string): Promise<LoginRespo
     const response = await axios.get(url, {
       params: {
         email,
-        password,
-        name
+        password
       }
     });
 

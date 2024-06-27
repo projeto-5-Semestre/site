@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import axios from 'axios';
 
 export type User = {
-  id: string;
+  id?: string;
   name: string;
   cpf: string;
   email: string;
@@ -32,6 +32,7 @@ export interface RegisterResponse {
 }
 
 const authOptions = {
+ 
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -67,7 +68,10 @@ const authOptions = {
         }
       },
     })
-  ],
+  ], 
+  trustHosrt: true,
+  trustHostedDomain: true,
+  
   pages: {
     signIn: "/TelaLogin",
     signOut: "/",
@@ -94,7 +98,7 @@ const authOptions = {
       }
       return token;
     },
-  },
+  }
 };
 
 export default NextAuth(authOptions);

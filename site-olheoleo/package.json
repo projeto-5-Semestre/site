@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:server": "json-server --watch src/app/api/db.json --port 3000",
+    "dev:next": "next dev -p 3001",
+    "dev": "concurrently -k -n \"json-server,next\" \"npm run dev:server\" \"npm run dev:next\"",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start": "concurrently -k -n \"json-server,next\" \"npx json-server src/app/api/db.json --port 3000\" \"next start -p 3001\""
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -17,6 +19,7 @@
     "@mui/material": "^5.15.13",
     "@mui/material-nextjs": "latest",
     "axios": "^1.6.8",
+    "concurrently": "^8.2.2",
     "eslint-plugin-react-hooks": "^5.1.0-rc-107a2f8c3e-20240617",
     "i": "^0.3.7",
     "json-server": "^1.0.0-alpha.23",

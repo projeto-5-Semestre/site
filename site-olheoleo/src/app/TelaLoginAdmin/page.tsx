@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import "../globals.css";
-import AuthenticationBody from "../TelaLogin/Componentes/AuthenticationBody/AuthenticationBody";
-import AuthenticationBodyAdmin from "./Componentes/AuthenticationBodyAdmin";
+import AuthenticationBodyAdmin from "../TelaLoginAdmin/components/AuthenticationBodyAdmin";
 
 export default function TelaLogin() {
   return (

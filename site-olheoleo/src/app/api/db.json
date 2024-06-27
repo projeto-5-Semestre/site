@@ -3,19 +3,11 @@
     {
       "id": "1ac1",
       "name": "Conta Teste",
-      "cpf": "42655544423",
+      "cpf": "42655544424",
       "email": "teste_@email.com",
       "telefone": "88941415252",
       "password": "123",
       "veiculos": [
-        {
-          "id": "1718711947657",
-          "modelo": "NOVO Vf",
-          "url_imagem": "blob:http://localhost:3001/ffcbcd24-37ba-4a3d-a397-db5fb73cc9ff",
-          "quilometragem": "4565",
-          "placa": "a41a",
-          "tipo_oleo": "Velho"
-        },
         {
           "id": "1719353156235",
           "modelo": "as",
@@ -27,34 +19,43 @@
       ]
     },
     {
-      "id": "233dd",
-      "name": "Ze",
-      "cpf": "333",
-      "email": "aas@email.com",
-      "telefone": "112",
-      "password": "123",
-      "veiculos": [
-        {
-          "id": "1719427385042",
-          "modelo": "Teste",
-          "url_imagem": "/car.jpg",
-          "quilometragem": "123",
-          "placa": "NAS2D32",
-          "tipo_oleo": "Usado",
-          "modelo_ultimo_oleo": "Shel",
-          "filtro_oleo": "Trocado",
-          "filtro_ar": "Front",
-          "filtro_combustivel": "Easy",
-          "filtro_cambio": "Usado"
-        }
-      ]
-    },
-    {
       "id": "",
       "name": "testee",
       "cpf": "123.456.789-99",
       "email": "testee@email.com",
       "telefone": "(12) 98554-6666",
+      "password": "123",
+      "veiculos": []
+    },
+    {
+      "id": "22SS",
+      "name": "Joao",
+      "cpf": "123.456.655-89",
+      "email": "teste@eemail.com",
+      "telefone": "(12) 98554-2232",
+      "password": "123",
+      "veiculos": [
+        {
+          "id": "1719443039070",
+          "modelo": "TESTE",
+          "url_imagem": "/car.jpg",
+          "quilometragem": "2566",
+          "placa": "ASX2B33",
+          "tipo_oleo": "NOVO",
+          "modelo_ultimo_oleo": "SHELL",
+          "filtro_oleo": "A",
+          "filtro_ar": "A",
+          "filtro_combustivel": "A",
+          "filtro_cambio": "A"
+        }
+      ]
+    },
+    {
+      "id": "",
+      "name": "Novo",
+      "cpf": "456.123.554-22",
+      "email": "teste2@em.com",
+      "telefone": "(12) 98554-4462",
       "password": "123",
       "veiculos": []
     }
